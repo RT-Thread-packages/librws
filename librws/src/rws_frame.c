@@ -289,16 +289,18 @@ void rws_frame_fill_with_send_bin(_rws_frame *f, const void *data, const size_t 
 void rws_frame_combine_datas(_rws_frame *to, _rws_frame *from)
 {
     unsigned char *comb_data = (unsigned char *)rws_malloc(to->data_size + from->data_size);
+    int offset = 0;
     if (comb_data)
     {
         if (to->data && to->data_size)
         {
             memcpy(comb_data, to->data, to->data_size);
         }
-        comb_data += to->data_size;
+        //comb_data += to->data_size;
+        offset += to->data_size;
         if (from->data && from->data_size)
         {
-            memcpy(comb_data, from->data, from->data_size);
+            memcpy(comb_data + offset, from->data, from->data_size);
         }
     }
     rws_free(to->data);
